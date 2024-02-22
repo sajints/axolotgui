@@ -23,7 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm cache clean --force
+          # npm cache clean --force
           npm install -f
           npm run build
           # npm run test --if-present
