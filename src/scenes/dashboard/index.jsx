@@ -55,8 +55,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title="12"
+            subtitle="Number of therapies today"
             progress="0.75"
             increase="+14%"
             icon={
@@ -74,8 +74,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title="4"
+            subtitle="Active Devices"
             progress="0.50"
             increase="+21%"
             icon={
@@ -93,8 +93,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title="320"
+            subtitle="Inactive Devices"
             progress="0.30"
             increase="+5%"
             icon={
@@ -113,7 +113,7 @@ const Dashboard = () => {
         >
           <StatBox
             title="1,325,134"
-            subtitle="Traffic Received"
+            subtitle="Number of Therapies this month"
             progress="0.80"
             increase="+43%"
             icon={
@@ -180,7 +180,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Recent Sync
             </Typography>
           </Box>
           {mockTransactions.map((transaction, i) => (
@@ -210,7 +210,7 @@ const Dashboard = () => {
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                {transaction.cost}
               </Box>
             </Box>
           ))}
@@ -224,7 +224,7 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Health Monitor
           </Typography>
           <Box
             display="flex"
@@ -238,9 +238,9 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              $48,352 revenue generated
+              48,352 therapies done
             </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+            <Typography>Includes all geographies</Typography>
           </Box>
         </Box>
         <Box
@@ -253,7 +253,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            Single Device Screen
           </Typography>
           {/* <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
