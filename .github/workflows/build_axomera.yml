@@ -71,7 +71,7 @@ jobs:
         with:
           app-name: 'axomera'
           slot-name: 'Production'
-          package: build
+          package: .
           
       - name: Serve
         run: |   
