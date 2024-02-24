@@ -71,5 +71,9 @@ jobs:
         with:
           app-name: 'axomera'
           slot-name: 'Production'
-          package: ./build
+          package: build
           
+      - name: Serve
+        run: |   
+              npm install -g serve
+              npx serve -s build 
