@@ -62,6 +62,6 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'axomera'
-          slot-name: 'Production'
+          # slot-name: 'Production'
           package: .
           
