@@ -32,44 +32,44 @@ jobs:
           npm run build
           # npm run test --if-present
 
-      # - name: Upload artifact for deployment job
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: node-app
-      #     path: .
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: node-app
+          path: ./build
 
-      - name: Upload to Azure storage
-        run: |
-          az storage file upload-batch --connection-string ${{ secrets.STORAGEKEY1 }} --destination deployment-ui/$VERSION --source .
+      # - name: Upload to Azure storage
+      #   run: |
+      #     az storage file upload-batch --connection-string ${{ secrets.STORAGEKEY1 }} --destination deployment-ui/$VERSION --source .
 
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   environment:
-  #     name: 'Production'
-  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-  #   permissions:
-  #     id-token: write #This is required for requesting the JWT
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
-  #   steps:
-  #     - name: Download artifact from build job
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: node-app
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: node-app
       
-  #     - name: Login to Azure
-  #       uses: azure/login@v1
-  #       with:
-  #         client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E564E163A38E4D9F97F1A38B3643A675 }}
-  #         tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_41D1CC525B9F4E7085502BB8ACA93F79 }}
-  #         subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E8B37AF5535E473F872C402C30708933 }}
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E564E163A38E4D9F97F1A38B3643A675 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_41D1CC525B9F4E7085502BB8ACA93F79 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E8B37AF5535E473F872C402C30708933 }}
 
-  #     - name: 'Deploy to Azure Web App'
-  #       uses: azure/webapps-deploy@v2
-  #       id: deploy-to-webapp
-  #       with:
-  #         app-name: 'axomera'
-  #         # slot-name: 'Production'
-  #         package: .
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
+        with:
+          app-name: 'axomera'
+          slot-name: 'Production'
+          package: .
           
