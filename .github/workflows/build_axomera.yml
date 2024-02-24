@@ -30,6 +30,7 @@ jobs:
           npm config set legacy-peer-deps true
           npm install
           npm run build
+          mkdir temp && xcopy build temp /E /H /C /I
           ls
           # npm run test --if-present
 
@@ -37,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: build
+          path: temp
 
       # - name: Upload to Azure storage
       #   run: |
