@@ -28,8 +28,7 @@ jobs:
       #     name: node-app
       - name: Download from Azure storage
         run: |
-          az storage file upload-batch --connection-string ${{ secrets.STORAGEKEY1 }} --destination deployment-ui --source .
-          az storage blob download --connection-string ${{ secrets.STORAGEKEY1 }} --container-name deployment-ui/$VERSION 
+          az storage blob download --connection-string ${{ secrets.STORAGEKEY1 }} --container-name deployment-ui/ --file $VERSION
         # --file deployment-ui/$VERSION --name "$AZURE_DB_ZIP_FILE_NAME" --container-name "$AZURE_CONTAINER_NAME"
 
       - name: Login to Azure
