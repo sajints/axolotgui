@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: ./build
+          path: build
 
       # - name: Upload to Azure storage
       #   run: |
@@ -75,5 +75,5 @@ jobs:
           
       - name: Serve
         run: |   
-              npm install -g serve
-              npx serve -s build 
+          npm install -g serve
+          npx serve -s build 
