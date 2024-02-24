@@ -30,7 +30,8 @@ jobs:
           npm config set legacy-peer-deps true
           npm install
           npm run build
-          mkdir temp && xcopy build temp /E /H /C /I
+          mkdir temp
+          xcopy build temp\build /E /H /C /I
           ls
           # npm run test --if-present
 
