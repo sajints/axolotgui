@@ -76,7 +76,8 @@ jobs:
           slot-name: 'Production'
           package: .
           
-      - name: Serve
-        run: |   
-          npm install -g serve
-          npx serve -s build 
+      # - name: Serve
+      #   run: |   
+      #     export PORT=80
+      #     npm install -g serve
+      #     serve -s build 
