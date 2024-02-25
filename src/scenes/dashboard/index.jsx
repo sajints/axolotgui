@@ -238,9 +238,9 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              48,352 therapies done
+              48,352 Sync done this month
             </Typography>
-            <Typography>Includes all geographies</Typography>
+            <Typography>Includes all geographies, full & half sync</Typography>
           </Box>
         </Box>
         <Box
