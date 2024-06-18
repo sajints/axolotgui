@@ -100,83 +100,111 @@ export const mockTransactions = [
 
 export const mockBarData = [
   {
-    country: "AD",
-    "hot dog": 137,
-    "hot dogColor": "hsl(229, 70%, 50%)",
-    burger: 96,
-    burgerColor: "hsl(296, 70%, 50%)",
-    kebab: 72,
-    kebabColor: "hsl(97, 70%, 50%)",
-    donut: 140,
-    donutColor: "hsl(340, 70%, 50%)",
+    "months": "Jan",
+    "Switzerland": 14,
+    "SwitzerlandColor": "hsl(349, 70%, 50%)",
+    "US": 58,
+    "USColor": "hsl(67, 70%, 50%)",
+    "Belgium": 149,
+    "BelgiumColor": "hsl(266, 70%, 50%)",
+    "Netherlands": 51,
+    "NetherlandsColor": "hsl(178, 70%, 50%)",
+    "France": 111,
+    "FranceColor": "hsl(283, 70%, 50%)",
+    "Germany": 90,
+    "GermanyColor": "hsl(308, 70%, 50%)"
   },
   {
-    country: "AE",
-    "hot dog": 55,
-    "hot dogColor": "hsl(307, 70%, 50%)",
-    burger: 28,
-    burgerColor: "hsl(111, 70%, 50%)",
-    kebab: 58,
-    kebabColor: "hsl(273, 70%, 50%)",
-    donut: 29,
-    donutColor: "hsl(275, 70%, 50%)",
+    "months": "Feb",
+    "Switzerland": 86,
+    "SwitzerlandColor": "hsl(194, 70%, 50%)",
+    "US": 128,
+    "USColor": "hsl(156, 70%, 50%)",
+    "Belgium": 102,
+    "BelgiumColor": "hsl(303, 70%, 50%)",
+    "Netherlands": 121,
+    "NetherlandsColor": "hsl(269, 70%, 50%)",
+    "France": 126,
+    "FranceColor": "hsl(266, 70%, 50%)",
+    "Germany": 23,
+    "GermanyColor": "hsl(88, 70%, 50%)"
   },
   {
-    country: "AF",
-    "hot dog": 109,
-    "hot dogColor": "hsl(72, 70%, 50%)",
-    burger: 23,
-    burgerColor: "hsl(96, 70%, 50%)",
-    kebab: 34,
-    kebabColor: "hsl(106, 70%, 50%)",
-    donut: 152,
-    donutColor: "hsl(256, 70%, 50%)",
+    "months": "Mar",
+    "Switzerland": 92,
+    "SwitzerlandColor": "hsl(285, 70%, 50%)",
+    "US": 138,
+    "USColor": "hsl(330, 70%, 50%)",
+    "Belgium": 122,
+    "BelgiumColor": "hsl(87, 70%, 50%)",
+    "Netherlands": 41,
+    "NetherlandsColor": "hsl(112, 70%, 50%)",
+    "France": 135,
+    "FranceColor": "hsl(319, 70%, 50%)",
+    "Germany": 105,
+    "GermanyColor": "hsl(154, 70%, 50%)"
   },
   {
-    country: "AG",
-    "hot dog": 133,
-    "hot dogColor": "hsl(257, 70%, 50%)",
-    burger: 52,
-    burgerColor: "hsl(326, 70%, 50%)",
-    kebab: 43,
-    kebabColor: "hsl(110, 70%, 50%)",
-    donut: 83,
-    donutColor: "hsl(9, 70%, 50%)",
+    "months": "Apr",
+    "Switzerland": 64,
+    "SwitzerlandColor": "hsl(84, 70%, 50%)",
+    "US": 114,
+    "USColor": "hsl(38, 70%, 50%)",
+    "Belgium": 186,
+    "BelgiumColor": "hsl(260, 70%, 50%)",
+    "Netherlands": 152,
+    "NetherlandsColor": "hsl(118, 70%, 50%)",
+    "France": 135,
+    "FranceColor": "hsl(80, 70%, 50%)",
+    "Germany": 194,
+    "GermanyColor": "hsl(186, 70%, 50%)"
   },
   {
-    country: "AI",
-    "hot dog": 81,
-    "hot dogColor": "hsl(190, 70%, 50%)",
-    burger: 80,
-    burgerColor: "hsl(325, 70%, 50%)",
-    kebab: 112,
-    kebabColor: "hsl(54, 70%, 50%)",
-    donut: 35,
-    donutColor: "hsl(285, 70%, 50%)",
+    "months": "May",
+    "Switzerland": 191,
+    "SwitzerlandColor": "hsl(45, 70%, 50%)",
+    "US": 11,
+    "USColor": "hsl(87, 70%, 50%)",
+    "Belgium": 36,
+    "BelgiumColor": "hsl(58, 70%, 50%)",
+    "Netherlands": 186,
+    "NetherlandsColor": "hsl(322, 70%, 50%)",
+    "France": 132,
+    "FranceColor": "hsl(344, 70%, 50%)",
+    "Germany": 162,
+    "GermanyColor": "hsl(323, 70%, 50%)"
   },
   {
-    country: "AL",
-    "hot dog": 66,
-    "hot dogColor": "hsl(208, 70%, 50%)",
-    burger: 111,
-    burgerColor: "hsl(334, 70%, 50%)",
-    kebab: 167,
-    kebabColor: "hsl(182, 70%, 50%)",
-    donut: 18,
-    donutColor: "hsl(76, 70%, 50%)",
+    "months": "Jun",
+    "Switzerland": 28,
+    "SwitzerlandColor": "hsl(78, 70%, 50%)",
+    "US": 149,
+    "USColor": "hsl(203, 70%, 50%)",
+    "Belgium": 74,
+    "BelgiumColor": "hsl(327, 70%, 50%)",
+    "Netherlands": 39,
+    "NetherlandsColor": "hsl(322, 70%, 50%)",
+    "France": 86,
+    "FranceColor": "hsl(307, 70%, 50%)",
+    "Germany": 45,
+    "GermanyColor": "hsl(135, 70%, 50%)"
   },
   {
-    country: "AM",
-    "hot dog": 80,
-    "hot dogColor": "hsl(87, 70%, 50%)",
-    burger: 47,
-    burgerColor: "hsl(141, 70%, 50%)",
-    kebab: 158,
-    kebabColor: "hsl(224, 70%, 50%)",
-    donut: 49,
-    donutColor: "hsl(274, 70%, 50%)",
-  },
-];
+    "months": "Jul",
+    "Switzerland": 55,
+    "SwitzerlandColor": "hsl(213, 70%, 50%)",
+    "US": 17,
+    "USColor": "hsl(66, 70%, 50%)",
+    "Belgium": 199,
+    "BelgiumColor": "hsl(20, 70%, 50%)",
+    "Netherlands": 138,
+    "NetherlandsColor": "hsl(322, 70%, 50%)",
+    "France": 72,
+    "FranceColor": "hsl(97, 70%, 50%)",
+    "Germany": 134,
+    "GermanyColor": "hsl(230, 70%, 50%)"
+  }
+]
 
 export const mockPieData = [
   {
@@ -224,156 +252,10 @@ export const mockLineData = [
         x: "Hospital 2",
         y: 75,
       },
-      {
-        x: "Hospital 3",
-        y: 36,
-      },
-      {
-        x: "Hospital 4",
-        y: 216,
-      },
-      {
-        x: "Hospital 5",
-        y: 35,
-      },
-      {
-        x: "Hospital 6",
-        y: 236,
-      },
-      {
-        x: "Hospital 7",
-        y: 88,
-      },
-      {
-        x: "Hospital 8",
-        y: 232,
-      },
-      {
-        x: "Hospital 9",
-        y: 281,
-      },
-      {
-        x: "Hospital 10",
-        y: 1,
-      },
-      {
-        x: "Hospital 11",
-        y: 35,
-      },
-      {
-        x: "Hospital 12",
-        y: 14,
-      },
+     
     ],
   },
-  {
-    id: "France",
-    color: tokens("dark").blueAccent[300],
-    data: [
-      {
-        x: "Hospital 1",
-        y: 101,
-      },
-      {
-        x: "Hospital 2",
-        y: 75,
-      },
-      {
-        x: "Hospital 3",
-        y: 36,
-      },
-      {
-        x: "Hospital 4",
-        y: 216,
-      },
-      {
-        x: "Hospital 5",
-        y: 35,
-      },
-      {
-        x: "Hospital 6",
-        y: 236,
-      },
-      {
-        x: "Hospital 7",
-        y: 88,
-      },
-      {
-        x: "Hospital 8",
-        y: 232,
-      },
-      {
-        x: "Hospital 9",
-        y: 281,
-      },
-      {
-        x: "Hospital 10",
-        y: 1,
-      },
-      {
-        x: "Hospital 11",
-        y: 35,
-      },
-      {
-        x: "Hospital 12",
-        y: 14,
-      },
-    ],
-  },
-  {
-    id: "Germany",
-    color: tokens("dark").redAccent[200],
-    data: [
-      {
-        x: "Hospital 1",
-        y: 101,
-      },
-      {
-        x: "Hospital 2",
-        y: 75,
-      },
-      {
-        x: "Hospital 3",
-        y: 36,
-      },
-      {
-        x: "Hospital 4",
-        y: 216,
-      },
-      {
-        x: "Hospital 5",
-        y: 35,
-      },
-      {
-        x: "Hospital 6",
-        y: 236,
-      },
-      {
-        x: "Hospital 7",
-        y: 88,
-      },
-      {
-        x: "Hospital 8",
-        y: 232,
-      },
-      {
-        x: "Hospital 9",
-        y: 281,
-      },
-      {
-        x: "Hospital 10",
-        y: 1,
-      },
-      {
-        x: "Hospital 11",
-        y: 35,
-      },
-      {
-        x: "Hospital 12",
-        y: 14,
-      },
-    ],
-  },
+ 
 ];
 
 export const mockGeographyData = [

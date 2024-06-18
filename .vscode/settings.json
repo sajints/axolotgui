@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ce3d222d-fcf2-4a79-80d2-bc69945da52a/resourceGroups/axomera_group/providers/Microsoft.Web/sites/axomera",
+    "appService.deploySubpath": "."
+}

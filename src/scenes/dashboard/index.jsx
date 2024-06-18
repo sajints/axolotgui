@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme, Drawer } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -9,21 +9,82 @@ import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
-// import BarChart from "../../components/BarChart";
+import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import useDashboard from "../../services/dashboard";
+import { useState } from "react";
+import useDevices from "../../services/devices";
+import { DeviceTable } from "./DeviceTable";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const { data: dashboardData } = useDashboard()
+  const {data: devices} =useDevices()
+  const [drawerOpen,setDrawerOpen] =useState(false);
+  const [tableDrawerOpen, setTableDrawerOpen] = useState(false)
+  const [tableType,setTableType] = useState('active-devices')
+  const toggleDrawer= () =>{
+    setDrawerOpen(!drawerOpen)
+  }
+  const getDataForLineChart=()=>{
+    let responseData = dashboardData?.therapyTransmitted || []
+    let allHospital = [];
+    responseData.forEach(country=>{
+      country?.hospitals?.forEach(hospital=>{
+        allHospital.push({...hospital,country:country.country.name})
+      })
+    })
+    console.log(allHospital)
+   const transformedData = responseData.map(countryData=>{
+      return {
+        id: countryData?.country?.name,
+        color: tokens("dark").greenAccent[500],
+        data: allHospital.map(hospital=>{
+          return {
+            x:hospital.name ?? "dummy",
+            y:countryData.country.name== hospital.country? hospital.therapyCount:0
+          }
+          })
+      }
+    })
+    return transformedData
+  }
+  const toggleTableDrawer = () =>{
+    setTableDrawerOpen(!tableDrawerOpen)
+  }
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Drawer
+     
+      anchor={'right'}
+      open={drawerOpen}
+      onClose={toggleDrawer}
+    >
+     <Box sx={{width:288}}>
+      Drawer
+      </Box>
+    </Drawer>
+    <Drawer anchor="right" open={tableDrawerOpen} onClose={toggleTableDrawer}>
+      <Box sx={{width:900}}>
+       <DeviceTable data={tableType === 'active-devices'?devices["activeDevices"]: devices["inactiveDevices"]}/>
+      </Box>
+    </Drawer>
         <Header title="DASHBOARD" subtitle="Detailed dashboard view" />
 
         <Box>
+        <Button
+        onClick={toggleDrawer}
+        sx={{
+          backgroundColor: colors.blueAccent[700],
+          color: colors.grey[100],
+          fontSize: "14px",
+          fontWeight: "bold",
+          padding: "10px 20px",
+        }} variant="outlined">Filters</Button>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -55,10 +116,11 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12"
+            title={dashboardData.dailyTherapyCount}
+            
             subtitle="Number of therapies today"
             progress="0.75"
-            increase="+14%"
+            increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -72,12 +134,17 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{cursor:'pointer'}}
+          onClick={()=>{
+            setTableType('active-devices')
+            toggleTableDrawer()
+          }}
         >
           <StatBox
-            title="4"
+            title={dashboardData.activeDevices}
             subtitle="Active Devices"
             progress="0.50"
-            increase="+21%"
+            increase={`${dashboardData?.activeDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.activeDevicesPercentageDiff}` : `- ${dashboardData?.activeDevicesPercentageDiff}`}%`}
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -91,12 +158,17 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          sx={{cursor:'pointer'}}
+          onClick={()=>{
+            setTableType('inactive-devices')
+            toggleTableDrawer()
+          }}
         >
           <StatBox
-            title="320"
+            title={dashboardData.inactiveDevices}
             subtitle="Inactive Devices"
             progress="0.30"
-            increase="+5%"
+            increase={`${dashboardData?.inactiveDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}` : `- ${dashboardData?.inactiveDevicesPercentageDiff}`}%`}
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -112,10 +184,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1325"
+            title={dashboardData.monthlyTherapyCount}
             subtitle="Number of Therapies this month"
             progress="0.80"
-            increase="+43%"
+            increase={`${dashboardData?.monthlyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}` : `- ${dashboardData?.monthlyTherapyPercentageDiff}`}%`}
             icon={
               <TrafficIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -162,7 +234,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <LineChart isDashboard={true} data={getDataForLineChart()} />
           </Box>
         </Box>
         <Box
@@ -183,9 +255,9 @@ const Dashboard = () => {
               Recent Sync
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {dashboardData?.recentSync?.map((transaction, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -198,19 +270,19 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {transaction.hospitalName}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {transaction.agentName}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>{transaction.dateOfSync}</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                {transaction.cost}
+                {transaction.count}
               </Box>
             </Box>
           ))}
@@ -238,7 +310,7 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              48,352 Sync done this month
+              {dashboardData?.monthlySyncCount} Sync done this month
             </Typography>
             <Typography>Includes all geographies, full & half sync</Typography>
           </Box>
@@ -253,11 +325,11 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Firmware Updates this month
+            Firmware Updates last 7 months
           </Typography>
-          {/* <Box height="250px" mt="-20px">
+         <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
-          </Box> */}
+          </Box> 
         </Box>
         <Box
           gridColumn="span 4"
