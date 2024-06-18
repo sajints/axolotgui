@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme, Drawer } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -12,18 +12,43 @@ import GeographyChart from "../../components/GeographyChart";
 // import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import useDashboard from "../../services/dashboard";
+import { useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const { data: dashboardData } = useDashboard()
+  const [drawerOpen,setDrawerOpen] =useState(false)
+  const toggleDrawer= () =>{
+    setDrawerOpen(!drawerOpen)
+  }
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Drawer
+     
+      anchor={'right'}
+      open={drawerOpen}
+      onClose={toggleDrawer}
+    >
+     <Box sx={{width:288}}>
+      Drawer
+      </Box>
+    </Drawer>
         <Header title="DASHBOARD" subtitle="Detailed dashboard view" />
 
         <Box>
+        <Button
+        onClick={toggleDrawer}
+        sx={{
+          backgroundColor: colors.blueAccent[700],
+          color: colors.grey[100],
+          fontSize: "14px",
+          fontWeight: "bold",
+          padding: "10px 20px",
+        }} variant="outlined">Filters</Button>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -55,10 +80,11 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12"
+            title={dashboardData.dailyTherapyCount}
+            
             subtitle="Number of therapies today"
             progress="0.75"
-            increase="+14%"
+            increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -74,10 +100,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="4"
+            title={dashboardData.activeDevices}
             subtitle="Active Devices"
             progress="0.50"
-            increase="+21%"
+            increase={`${dashboardData?.activeDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.activeDevicesPercentageDiff}` : `- ${dashboardData?.activeDevicesPercentageDiff}`}%`}
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -93,10 +119,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="320"
+            title={dashboardData.inactiveDevices}
             subtitle="Inactive Devices"
             progress="0.30"
-            increase="+5%"
+            increase={`${dashboardData?.inactiveDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}` : `- ${dashboardData?.inactiveDevicesPercentageDiff}`}%`}
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -112,10 +138,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1325"
+            title={dashboardData.monthlyTherapyCount}
             subtitle="Number of Therapies this month"
             progress="0.80"
-            increase="+43%"
+            increase={`${dashboardData?.monthlyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}` : `- ${dashboardData?.monthlyTherapyPercentageDiff}`}%`}
             icon={
               <TrafficIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -183,9 +209,9 @@ const Dashboard = () => {
               Recent Sync
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {dashboardData?.recentSync?.map((transaction, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -198,19 +224,19 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {transaction.hospitalName}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {transaction.agentName}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>{transaction.dateOfSync}</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                {transaction.cost}
+                {transaction.count}
               </Box>
             </Box>
           ))}
@@ -238,7 +264,7 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              48,352 Sync done this month
+              {dashboardData?.monthlySyncCount} Sync done this month
             </Typography>
             <Typography>Includes all geographies, full & half sync</Typography>
           </Box>
