@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, Typography, useTheme, Drawer } from "@mui/material";
-import { Box, Button, IconButton, Typography, useTheme, Drawer } from "@mui/material";
+
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -77,15 +77,7 @@ const Dashboard = () => {
         <Header title="DASHBOARD" subtitle="Detailed dashboard view" />
 
         <Box>
-        <Button
-        onClick={toggleDrawer}
-        sx={{
-          backgroundColor: colors.blueAccent[700],
-          color: colors.grey[100],
-          fontSize: "14px",
-          fontWeight: "bold",
-          padding: "10px 20px",
-        }} variant="outlined">Filters</Button>
+        
         <Button
         onClick={toggleDrawer}
         sx={{
@@ -128,12 +120,12 @@ const Dashboard = () => {
           <StatBox
             title={dashboardData.dailyTherapyCount}
             
-            title={dashboardData.dailyTherapyCount}
+            
             
             subtitle="Number of therapies today"
             progress="0.75"
             increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
-            increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
+            
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -155,11 +147,11 @@ const Dashboard = () => {
         >
           <StatBox
             title={dashboardData.activeDevices}
-            title={dashboardData.activeDevices}
+            
             subtitle="Active Devices"
             progress="0.50"
             increase={`${dashboardData?.activeDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.activeDevicesPercentageDiff}` : `- ${dashboardData?.activeDevicesPercentageDiff}`}%`}
-            increase={`${dashboardData?.activeDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.activeDevicesPercentageDiff}` : `- ${dashboardData?.activeDevicesPercentageDiff}`}%`}
+            
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -181,11 +173,11 @@ const Dashboard = () => {
         >
           <StatBox
             title={dashboardData.inactiveDevices}
-            title={dashboardData.inactiveDevices}
+            
             subtitle="Inactive Devices"
             progress="0.30"
             increase={`${dashboardData?.inactiveDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}` : `- ${dashboardData?.inactiveDevicesPercentageDiff}`}%`}
-            increase={`${dashboardData?.inactiveDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}` : `- ${dashboardData?.inactiveDevicesPercentageDiff}`}%`}
+            
             icon={
               <PersonAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -202,11 +194,11 @@ const Dashboard = () => {
         >
           <StatBox
             title={dashboardData.monthlyTherapyCount}
-            title={dashboardData.monthlyTherapyCount}
+            
             subtitle="Number of Therapies this month"
             progress="0.80"
             increase={`${dashboardData?.monthlyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}` : `- ${dashboardData?.monthlyTherapyPercentageDiff}`}%`}
-            increase={`${dashboardData?.monthlyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}` : `- ${dashboardData?.monthlyTherapyPercentageDiff}`}%`}
+            
             icon={
               <TrafficIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -274,11 +266,11 @@ const Dashboard = () => {
               Recent Sync
             </Typography>
           </Box>
-          {dashboardData?.recentSync?.map((transaction, i) => (
+          
           {dashboardData?.recentSync?.map((transaction, i) => (
             <Box
               key={`${i}`}
-              key={`${i}`}
+              
               display="flex"
               justifyContent="space-between"
               alignItems="center"
