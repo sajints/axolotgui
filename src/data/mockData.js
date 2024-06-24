@@ -944,3 +944,32 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+export const countryFilterData = {
+    id:"country",
+    options:[
+      {
+        id:'001',
+        label:"Germany"
+      },
+      {
+        id:'002',
+        label:"France"
+      }
+  
+    ]
+  }
+  export const hospitalFilterData = {
+    id:'hospital',
+    options:[
+      {
+        id:'001',
+        label:'St paul hospital'
+      },
+      {
+        id:'002',
+        label:'St peter hospital'
+      }
+
+    ]
+  }
