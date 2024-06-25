@@ -34,7 +34,7 @@ function getStyles(name, personName, theme) {
 }
 export const FilterPanel = ({ toggleDrawer }) => {
     const theme = useTheme();
-    const { filterData, setData, setFilterData } = React.useContext(FilterContext);
+    const { filterData, setData, setFilterData ,finalFilterData , setFinalFilterData } = React.useContext(FilterContext);
   const {getDashboardData } = useDashboard()
 
     const handleChangeCountry = (event) => {
@@ -42,7 +42,7 @@ export const FilterPanel = ({ toggleDrawer }) => {
             target: { value },
         } = event;
         setData(
-            "country",
+            "Country",
             typeof value === 'string' ? value.split(',') : value,
         );
     }
@@ -51,7 +51,7 @@ export const FilterPanel = ({ toggleDrawer }) => {
             target: { value },
         } = event;
         setData(
-            "hospital",
+            "Hospital",
             typeof value === 'string' ? value.split(',') : value,
         );
     }
@@ -61,9 +61,10 @@ export const FilterPanel = ({ toggleDrawer }) => {
 
     const apply = () => {
         console.log(filterData);
+        setFinalFilterData(filterData)
         let value = "";
         Object.keys(filterData).forEach((key,index)=>{
-            value +=`${key}=${filterData[key].join(',')}`;
+            value +=`${key}=${filterData[key].map(item => item.id).join(',')}`;
             if(index !== Object.keys(filterData).length-1){
                 value += "&";
             }
@@ -86,7 +87,7 @@ export const FilterPanel = ({ toggleDrawer }) => {
                     labelId="demo-multiple-name-label"
                     id="demo-multiple-name"
                     multiple
-                    value={filterData["country"] || []}
+                    value={filterData["Country"] || []}
                     onChange={handleChangeCountry}
                     input={<OutlinedInput label="Country" />}
                     MenuProps={MenuProps}
@@ -94,8 +95,8 @@ export const FilterPanel = ({ toggleDrawer }) => {
                     {countryFilterData.options.map((op) => (
                         <MenuItem
                             key={op.id}
-                            value={op.id}
-                            style={getStyles(op.label, filterData["country"] || [], theme)}
+                            value={op}
+                            style={getStyles(op.label, filterData["Country"] || [], theme)}
                         >
                             {op.label}
                         </MenuItem>
@@ -111,7 +112,7 @@ export const FilterPanel = ({ toggleDrawer }) => {
                         labelId="demo-multiple-name-label"
                         id="demo-multiple-name"
                         multiple
-                        value={filterData["hospital"] || []}
+                        value={filterData["Hospital"] || []}
                         onChange={handleChangeHospital}
                         input={<OutlinedInput label="hospital" />}
                         MenuProps={MenuProps}
@@ -119,8 +120,8 @@ export const FilterPanel = ({ toggleDrawer }) => {
                         {hospitalFilterData.options.map((op) => (
                             <MenuItem
                                 key={op.id}
-                                value={op.id}
-                                style={getStyles(op.label, filterData["hospital"] || [], theme)}
+                                value={op}
+                                style={getStyles(op.label, filterData["Hospital"] || [], theme)}
                             >
                                 {op.label}
                             </MenuItem>
