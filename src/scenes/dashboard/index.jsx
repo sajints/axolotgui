@@ -19,6 +19,8 @@ import useDevices from "../../services/devices";
 import { DeviceTable } from "./DeviceTable";
 import { FilterPanel } from "./FilterPanel";
 import { CurrentFilter } from "./CurrentFilter";
+import axios from "axios";
+import { API_BASE_URL, GET_DASHBOARD_URL, GET_DEVICES_URL } from "../../urlconstants";
 
 
 
@@ -26,15 +28,18 @@ import { CurrentFilter } from "./CurrentFilter";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { data: dashboardData } = useDashboard()
-  const { data: devices } = useDevices()
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [tableDrawerOpen, setTableDrawerOpen] = useState(false)
   const [tableType, setTableType] = useState('active-devices')
+  const [loading, setLoading] = useState(false)
+  const [dashboardData, setDashboardlData] = useState({})
+  const [deviceData, setDevicelData] = useState({})
+
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen)
   }
+  console.log("dashboardData", dashboardData);
   const getDataForLineChart = () => {
     let responseData = dashboardData?.therapyTransmitted || []
     let allHospital = [];
@@ -61,6 +66,49 @@ const Dashboard = () => {
   const toggleTableDrawer = () => {
     setTableDrawerOpen(!tableDrawerOpen)
   }
+
+  const getDashboardData = async (value) => {
+    setLoading(true)
+    const params = value ? `?${value}` : ""
+    try {
+      const response = await axios.get(`${API_BASE_URL}${GET_DASHBOARD_URL}${params}`);
+      setDashboardlData(response.data)
+
+    }
+    catch (e) {
+      console.log(e)
+    }
+    finally {
+      setLoading(false)
+    }
+
+    setLoading(false)
+  }
+
+  const getDevicesData = async (value) => {
+    setLoading(true)
+    const params = value ? `?${value}` : ""
+    try {
+      const response = await axios.get(`${API_BASE_URL}${GET_DEVICES_URL}${params}`);
+      setDevicelData(response.data[0])
+
+    }
+    catch (e) {
+      console.log(e)
+    }
+    finally {
+      setLoading(false)
+    }
+
+  }
+  React.useEffect(() => {
+    getDashboardData()
+    getDevicesData()
+  }, [])
+
+  if (loading) {
+    return "Loading"
+  }
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -72,18 +120,18 @@ const Dashboard = () => {
           onClose={toggleDrawer}
         >
           <Box sx={{ width: 350 }}>
-            <FilterPanel toggleDrawer={toggleDrawer} />
+            <FilterPanel toggleDrawer={toggleDrawer} getDashboardData={getDashboardData} getDevicesData={getDevicesData} />
           </Box>
         </Drawer>
         <Drawer anchor="right" open={tableDrawerOpen} onClose={toggleTableDrawer}>
           <Box sx={{ width: 900 }}>
-            <DeviceTable data={tableType === 'active-devices' ? devices["activeDevices"] : devices["inactiveDevices"]} />
+            <DeviceTable data={tableType === 'active-devices' ? deviceData["activeDevices"] : deviceData["inactiveDevices"]} />
           </Box>
         </Drawer>
-        <Box sx={{display:'flex' , alignItems:"center"}}>
+        <Box sx={{ display: 'flex', alignItems: "center" }}>
 
           <Header title="DASHBOARD" subtitle="Detailed dashboard view" />
-          <CurrentFilter />
+          <CurrentFilter getDashboardData={getDashboardData} getDevicesData={getDevicesData} />
         </Box>
         <Box>
 
@@ -128,9 +176,6 @@ const Dashboard = () => {
         >
           <StatBox
             title={dashboardData.dailyTherapyCount}
-
-
-
             subtitle="Number of therapies today"
             progress="0.75"
             increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
@@ -254,7 +299,9 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
+
             <LineChart isDashboard={true} data={getDataForLineChart()} />
+
           </Box>
         </Box>
         <Box

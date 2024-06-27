@@ -8,7 +8,7 @@ const useDashboard = () => {
       setLoading(true)
       const params = value ? `?${value}` : ""
       try {
-         const response = await axios.get(`${API_BASE_URL}${GET_DASHBOARD_URL}${params}`,{});
+         const response = await axios.get(`${API_BASE_URL}${GET_DASHBOARD_URL}${params}`);
          setData(response.data)
 
       }
@@ -20,10 +20,7 @@ const useDashboard = () => {
       }
 
    }
-   useEffect(() => {
-      getDashboardData()
 
-   }, [])
    return {data,loading,getDashboardData}
 }
 export default useDashboard;

@@ -9,7 +9,7 @@ import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import { countryFilterData, hospitalFilterData } from "../../data/mockData";
 import { Box, Button, IconButton, Typography, Drawer, Divider } from "@mui/material";
 import { FilterContext } from '../../context/FilterContext';
-import useDashboard from '../../services/dashboard';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,10 +32,9 @@ function getStyles(name, personName, theme) {
                 : theme.typography.fontWeightMedium,
     };
 }
-export const FilterPanel = ({ toggleDrawer }) => {
+export const FilterPanel = ({ toggleDrawer , getDevicesData ,getDashboardData }) => {
     const theme = useTheme();
     const { filterData, setData, setFilterData ,finalFilterData , setFinalFilterData } = React.useContext(FilterContext);
-  const {getDashboardData } = useDashboard()
 
     const handleChangeCountry = (event) => {
         const {
@@ -71,6 +70,8 @@ export const FilterPanel = ({ toggleDrawer }) => {
         });
 
         getDashboardData(value)
+        getDevicesData(value)
+
         toggleDrawer()
     }
 

@@ -19,10 +19,6 @@ const useDevices = () => {
       }
 
    }
-   useEffect(() => {
-      getDevicesData()
-
-   }, [])
    return {data,loading}
 }
 export default useDevices;
