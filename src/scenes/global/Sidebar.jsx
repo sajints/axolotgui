@@ -16,7 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import axoloticon from "../../Icons/AxomeraMainLogo-2.png"
+import axoloticon from "../../Icons/AxomeraMainLogo-1.png"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -81,7 +81,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMIN GUI
+                <img width="180" height="30" src={axoloticon} title="Axolot" alt="Axolot" loading="lazy"></img>
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -93,7 +93,7 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-              <img width="180" height="30" src={axoloticon} title="Axolot" alt="Axolot" loading="lazy"></img>
+              {/* <img width="180" height="30" src={axoloticon} title="Axolot" alt="Axolot" loading="lazy"></img> */}
                 
               </Box>
               <Box textAlign="center">
@@ -103,10 +103,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Name
+                  
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Admin
+                  
                 </Typography>
               </Box>
             </Box>
