@@ -11,6 +11,8 @@ import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
@@ -159,16 +161,16 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Profile Form"
+              title="Device List"
               to="/form"
-              icon={<PersonOutlinedIcon />}
+              icon={<ImportantDevicesIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
+              title="Therapy List"
               to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              icon={<MedicalServicesIcon />}
               selected={selected}
               setSelected={setSelected}
             />
