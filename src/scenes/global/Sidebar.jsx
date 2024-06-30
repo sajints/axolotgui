@@ -9,6 +9,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import PermDataSettingIcon from '@mui/icons-material/PermDataSetting';
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
@@ -132,7 +133,7 @@ const Sidebar = () => {
               Data
             </Typography>
             <Item
-              title="Manage Team"
+              title="Manage Clients"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
@@ -146,9 +147,9 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
+              title="Settings"
+              to="/settings"
+              icon={<PermDataSettingIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -169,7 +170,7 @@ const Sidebar = () => {
             />
             <Item
               title="Therapy List"
-              to="/calendar"
+              to="/therapy"
               icon={<MedicalServicesIcon />}
               selected={selected}
               setSelected={setSelected}
