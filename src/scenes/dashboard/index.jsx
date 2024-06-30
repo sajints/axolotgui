@@ -4,9 +4,13 @@ import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PhonelinkOffIcon from '@mui/icons-material/PhonelinkOff';
 import TrafficIcon from "@mui/icons-material/Traffic";
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
@@ -181,9 +185,10 @@ const Dashboard = () => {
             increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
 
             icon={
-              <EmailIcon
+              <PsychologyIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
+              
             }
           />
         </Box>
@@ -207,7 +212,7 @@ const Dashboard = () => {
             increase={`${dashboardData?.activeDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.activeDevicesPercentageDiff}` : `- ${dashboardData?.activeDevicesPercentageDiff}`}%`}
 
             icon={
-              <PointOfSaleIcon
+              <DevicesOtherIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -233,8 +238,7 @@ const Dashboard = () => {
             increase={`${dashboardData?.inactiveDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}` : `- ${dashboardData?.inactiveDevicesPercentageDiff}`}%`}
 
             icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+              <PhonelinkOffIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
@@ -254,7 +258,7 @@ const Dashboard = () => {
             increase={`${dashboardData?.monthlyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}` : `- ${dashboardData?.monthlyTherapyPercentageDiff}`}%`}
 
             icon={
-              <TrafficIcon
+              <MonitorHeartIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -384,7 +388,7 @@ const Dashboard = () => {
               sx={{ mt: "15px" }}
             >
               {dashboardData?.monthlySyncCount} Sync done this month
-              {dashboardData?.monthlySyncCount} Sync done this month
+              
             </Typography>
             <Typography>Includes all geographies, full & half sync</Typography>
           </Box>
