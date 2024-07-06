@@ -8,10 +8,16 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { REACT_AUTH0_DOMAIN, REACT_AUTH0_CLIENT_ID, REACT_REDIRECT_URI } from "./urlconstants";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const envDomain = process.env.REACT_APP_AUTH0_DOMAIN
+const envClientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const envRedirectUri = process.env.REACT_APP_REDIRECT_URI;
+
+console.log(envDomain + "--" + envClientId + "--" + envRedirectUri);
+
 // const config = getConfig();
-const domain = REACT_AUTH0_DOMAIN;
-const clientId = REACT_AUTH0_CLIENT_ID;
-const redirectUri = REACT_REDIRECT_URI
+// const domain = envDomain;
+// const clientId = envClientId;
+// const redirectUri = envRedirectUri
 // const providerConfig = {
 //   domain: config.domain,
 //   clientId: config.clientId,
@@ -28,12 +34,12 @@ const redirectUri = REACT_REDIRECT_URI
 root.render(
   
   <React.StrictMode>
-    <Auth0Provider domain={REACT_AUTH0_DOMAIN} 
-      clientId={REACT_AUTH0_CLIENT_ID} 
+    <Auth0Provider domain={envDomain} 
+      clientId={envClientId} 
       redirectUri={window.location.origin}
       // onRedirectCallback={onRedirectCallback}
       authorizationParams={{
-        redirect_uri: redirectUri
+        redirect_uri: window.location.origin
       }}>
       <BrowserRouter>
         <FilterProvider>
