@@ -18,16 +18,14 @@ const defaultTheme = createTheme();
 
 export default function LoginForm() {
   const { loginWithRedirect } = useAuth0();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+ 
     loginWithRedirect({
       appState: {
-        returnTo: "http://127.0.0.1:80",
+        returnTo: window.location.origin,
       }, 
       authorizationParams: {
         screen_hint: "signup",
@@ -39,7 +37,7 @@ export default function LoginForm() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
+        {/* <Box
           sx={{
             marginTop: 8,
             display: 'flex',
@@ -50,15 +48,15 @@ export default function LoginForm() {
             padding:'20px',
             backgroundColor:"white"
           }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: '#141b2d' }}>
+        > */}
+          {/* <Avatar sx={{ m: 1, bgcolor: '#141b2d' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
-          </Typography>
+          </Typography> */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -84,16 +82,17 @@ export default function LoginForm() {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 , fontSize:"15px" ,backgroundColor:"#1f2a40"}}
+              sx={{ mt: 3, mb: 2 , fontSize:"15px" , backgroundColor:"white"}}
+              // sx={{ mt: 3, mb: 2 , fontSize:"15px" ,backgroundColor:"#1f2a40"}}
             >
-              Sign In
+              <font color='#1f2a40'>Sign In</font>
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -101,9 +100,9 @@ export default function LoginForm() {
               </Grid>
               <Button startIcon={<GoogleIcon sx={{color:"#4285F4"}}/>}  sx={{ mt: 3, mb: 2 , color:'black',textTransform:'capitalize' ,fontSize:'15px'}}   fullWidth variant="outlined" onClick={() => loginWithRedirect()}>Continue With google</Button>
              
-            </Grid>
+            </Grid> */}
           </Box>
-        </Box>
+        {/* </Box> */}
 
       </Container>
     </ThemeProvider>

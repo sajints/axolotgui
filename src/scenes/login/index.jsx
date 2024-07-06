@@ -11,7 +11,7 @@ const Login = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6} sm={6} sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: '100vh' }}>
                         <Box display="flex" justifyContent="center" alignItems="center">
-                            <img width="300" src={axoloticon} title="Axolot" alt="Axolot" loading="lazy"></img>
+                            <img width="300" src={axoloticon} title="Axomera" alt="Axomera" loading="lazy"></img>
 
                         </Box>
                     </Grid>
