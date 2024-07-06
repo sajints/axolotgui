@@ -5,14 +5,12 @@ import App from "./App";
 import { BrowserRouter, useNavigate  } from "react-router-dom";
 import { FilterProvider } from "./context/FilterContext";
 import { Auth0Provider } from '@auth0/auth0-react';
-import { REACT_AUTH0_DOMAIN, REACT_AUTH0_CLIENT_ID, REACT_REDIRECT_URI } from "./urlconstants";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const envDomain = process.env.REACT_APP_AUTH0_DOMAIN
 const envClientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const envRedirectUri = process.env.REACT_APP_REDIRECT_URI;
 
-console.log(envDomain + "--" + envClientId + "--" + envRedirectUri);
 
 // const config = getConfig();
 // const domain = envDomain;
