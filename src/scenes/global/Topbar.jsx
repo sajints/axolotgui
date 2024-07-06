@@ -8,11 +8,14 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { useAuth0 } from '@auth0/auth0-react';
+import Tooltip from '@mui/material/Tooltip';
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const { logout } = useAuth0();
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -43,9 +46,14 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton>
+        <Tooltip title="Logout">
+        <IconButton onClick={() => logout({ returnTo: window.location.origin })}
+          aria-label="logout"
+        >
           <PersonOutlinedIcon />
+          
         </IconButton>
+        </Tooltip>
       </Box>
     </Box>
   );
