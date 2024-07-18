@@ -77,11 +77,12 @@ export default function Device() {
 	const dataSourceSettings = {
 		dataFields: [
 			'id: string',
-			'CountryId: string',
-			'HospitalId: string',
-			'DeviceId: string',
-			'LastSyncedDate: string',
-			'LastTherapy: string',
+			'countryId: string',
+			'hospitalId: string',
+			'name: string',
+			'lastSync: string',
+			'lastTherapy: string',
+			'lastError: string',			
 			'firmwareVersion: string'
 
 
@@ -95,23 +96,27 @@ export default function Device() {
 	},
 	{
 		label: 'Country Id',
-		dataField: 'CountryId'
+		dataField: 'countryId'
 	},
 	{
 		label: 'Hospital Id',
-		dataField: 'HospitalId'
+		dataField: 'hospitalId'
 	},
 	{
 		label: 'DeviceId',
-		dataField: 'DeviceId'
+		dataField: 'name'
 	},
 	{
 		label: 'Last Synced Date',
-		dataField: 'LastSyncedDate'
+		dataField: 'lastSync'
 	},
 	{
 		label: 'Last Therapy',
-		dataField: 'LastTherapy'
+		dataField: 'lastTherapy'
+	},
+	{
+		label: 'Last Error',
+		dataField: 'lastError'
 	},
 	{
 		label: 'F/w Version',
