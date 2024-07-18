@@ -5,7 +5,7 @@ import Dashboard from "../scenes/dashboard";
 import Team from "../scenes/team";
 import Contacts from "../scenes/contacts";
 import Settings from "../scenes/settings";
-import Form from "../scenes/form";
+import DevicePage from "../scenes/devicepage/index";
 import Bar from "../scenes/bar";
 import Pie from "../scenes/pie";
 import Line from "../scenes/line";
@@ -23,7 +23,7 @@ export const RouteComponent = () => {
         <Route path="team" element={<PrivateRoute element={Team} />} />
         <Route path="contacts" element={<PrivateRoute element={Contacts} />} />
         <Route path="settings" element={<PrivateRoute element={Settings} />} />
-        <Route path="form" element={<PrivateRoute element={Form} />} />
+        <Route path="device" element={<PrivateRoute element={DevicePage} />} />
         <Route path="bar" element={<PrivateRoute element={Bar} />} />
         <Route path="pie" element={<PrivateRoute element={Pie} />} />
         <Route path="line" element={<PrivateRoute element={Line} />} />

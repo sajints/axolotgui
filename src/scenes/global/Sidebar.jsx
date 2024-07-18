@@ -21,6 +21,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import axoloticon from "../../Icons/AxomeraMainLogo-1.png"
+import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -130,7 +131,7 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+              Configuration
             </Typography>
             <Item
               title="Manage Clients"
@@ -159,11 +160,11 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Raw Data
             </Typography>
             <Item
               title="Device List"
-              to="/form"
+              to="/device"
               icon={<ImportantDevicesIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -176,9 +177,10 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="FAQ Page"
+              title="Health Monitor"
               to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
+              // icon={<HelpOutlineOutlinedIcon />}
+              icon={<ScreenSearchDesktopIcon/>}
               selected={selected}
               setSelected={setSelected}
             />
