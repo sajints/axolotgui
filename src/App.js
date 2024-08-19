@@ -13,7 +13,7 @@ import FAQ from "./scenes/faq";
 import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import TherapyListPage from "./scenes/therapy/therapy";
+// import TherapyListPage from "./scenes/therapy/therapy";
 import Login from "./scenes/login";
 import { RouteComponent } from "./routes";
 function App() {

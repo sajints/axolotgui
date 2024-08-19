@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { GET_DEVICES_URL, API_BASE_URL } from '../urlconstants';
-const useDevicesData = () => {
+const useTherapyData = () => {
    const [data, setData] = useState({});
    const [loading, setLoading] = useState(false)
-   const getDevicesData = async () => {
+   const getTherapyData = async () => {
       setLoading(true)
       try {
          const response = await axios.get(`${API_BASE_URL}${GET_DEVICES_URL}`);
@@ -21,4 +21,4 @@ const useDevicesData = () => {
    }
    return {data,loading}
 }
-export default useDevicesData;
+export default useTherapyData;

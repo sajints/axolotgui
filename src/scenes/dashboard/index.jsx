@@ -19,7 +19,7 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import useDashboard from "../../services/dashboard";
 import { useState } from "react";
-import useDevices from "../../services/devices";
+// import useDevicesData from "../../services/devices";
 import { DeviceTable } from "./DeviceTable";
 import { FilterPanel } from "./FilterPanel";
 import { CurrentFilter } from "./CurrentFilter";

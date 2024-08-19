@@ -1,6 +1,6 @@
 import 'smart-webcomponents-react/source/styles/smart.default.css';
 import { Smart, Grid } from 'smart-webcomponents-react/grid';
-import useDevices from "../../services/devices";
+// import useDevices from "../../services/devices";
 import { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL, GET_DASHBOARD_URL, GET_DEVICES_URL } from "../../urlconstants";
@@ -8,14 +8,14 @@ import * as React from 'react';
 
 export default function Device() {
 	const [loading, setLoading] = useState(false)
-	const [deviceData, setDevicelData] = useState({})
+	const [deviceData, setDeviceData] = useState({})
 
 	const getDevicesData = async (value) => {
 		setLoading(true)
 		const params = value ? `?${value}` : ""
 		try {
 		  const response = await axios.get(`${API_BASE_URL}${GET_DEVICES_URL}${params}`);
-		  setDevicelData(response.data[0])
+		  setDeviceData(response.data[0])
 	
 		}
 		catch (e) {

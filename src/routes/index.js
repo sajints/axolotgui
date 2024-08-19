@@ -10,7 +10,8 @@ import Bar from "../scenes/bar";
 import Pie from "../scenes/pie";
 import Line from "../scenes/line";
 import FAQ from "../scenes/faq";
-import Therapy from "../scenes/therapy/therapy";
+import TherapyLog from "../scenes/therapylogpage/index";
+import ErrorLog from "../scenes/errorlogpage/index";
 import Login from "../scenes/login";
 import Geography from "../scenes/geography";
 import PrivateRoute from "./privateroute";  // Import the PrivateRoute component
@@ -28,7 +29,8 @@ export const RouteComponent = () => {
         <Route path="pie" element={<PrivateRoute element={Pie} />} />
         <Route path="line" element={<PrivateRoute element={Line} />} />
         <Route path="faq" element={<PrivateRoute element={FAQ} />} />
-        <Route path="therapy" element={<PrivateRoute element={Therapy} />} />
+        <Route path="therapy" element={<PrivateRoute element={TherapyLog} />} />
+        <Route path="errorlog" element={<PrivateRoute element={ErrorLog} />} />
         <Route path="geography" element={<PrivateRoute element={Geography} />} />
       </Route>
       <Route path="/login" element={<Login />} />
