@@ -15,7 +15,7 @@ import ErrorLog from "../scenes/errorlogpage/index";
 import Login from "../scenes/login";
 import Geography from "../scenes/geography";
 import PrivateRoute from "./privateroute";  // Import the PrivateRoute component
-
+import HelathMonitor from "../scenes/healthMonitor";
 export const RouteComponent = () => {
   return (
     <Routes>
@@ -32,6 +32,8 @@ export const RouteComponent = () => {
         <Route path="therapy" element={<PrivateRoute element={TherapyLog} />} />
         <Route path="errorlog" element={<PrivateRoute element={ErrorLog} />} />
         <Route path="geography" element={<PrivateRoute element={Geography} />} />
+        <Route path="helathmonitor" element={<PrivateRoute element={HelathMonitor} />} />
+
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>

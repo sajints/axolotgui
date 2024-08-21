@@ -4,4 +4,5 @@ export const GET_DASHBOARD_URL= "/api/DashboardController" ;
 export const GET_DEVICES_URL = "/api/GetDevices";
 export const GET_THERAPYLOG_URL = "/api/GetTherapyLogStream";
 export const GET_ERRORLOG_URL = "/api/GetErrorLogStream";
+export const GET_HEALTHMONITOR_URL = "/api/GetHealthMonitorData"
 

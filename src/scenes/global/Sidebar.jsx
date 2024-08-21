@@ -22,7 +22,6 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import axoloticon from "../../Icons/AxomeraMainLogo-1.png"
 import ScreenSearchDesktopIcon from '@mui/icons-material/ScreenSearchDesktop';
-
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -185,7 +184,7 @@ const Sidebar = () => {
             />
             <Item
               title="Health Monitor"
-              to="/faq"
+              to="/helathmonitor"
               // icon={<HelpOutlineOutlinedIcon />}
               icon={<ScreenSearchDesktopIcon/>}
               selected={selected}
