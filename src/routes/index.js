@@ -6,11 +6,12 @@ import Team from "../scenes/team";
 import Contacts from "../scenes/contacts";
 import Settings from "../scenes/settings";
 import DevicePage from "../scenes/devicepage/index";
-import Bar from "../scenes/bar";
-import Pie from "../scenes/pie";
-import Line from "../scenes/line";
-import FAQ from "../scenes/faq";
+// import Bar from "../scenes/bar";
+// import Pie from "../scenes/pie";
+// import Line from "../scenes/line";
+// import FAQ from "../scenes/faq";
 import TherapyLog from "../scenes/therapylogpage/index";
+import TherapyLogStream from "../scenes/streamtherapylog/index"
 import ErrorLog from "../scenes/errorlogpage/index";
 import Login from "../scenes/login";
 import Geography from "../scenes/geography";
@@ -29,7 +30,7 @@ export const RouteComponent = () => {
         <Route path="therapy" element={<PrivateRoute element={TherapyLog} />} />
         <Route path="errorlog" element={<PrivateRoute element={ErrorLog} />} />
 
-        <Route path="streamtherapy" element={<PrivateRoute element={TherapyLog} />} />
+        <Route path="streamtherapylog" element={<PrivateRoute element={TherapyLogStream} />} />
         <Route path="streamerrorlog" element={<PrivateRoute element={ErrorLog} />} />
         
         <Route path="geography" element={<PrivateRoute element={Geography} />} />

@@ -10,7 +10,7 @@ import { Box } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 
-export default function TherapyListStream() {
+export default function TherapyLogStream() {
 	const [loading, setLoading] = useState(false)
 	const [TherapyLogData, setTherapyLogData] = useState({})
 
