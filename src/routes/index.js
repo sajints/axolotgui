@@ -25,12 +25,13 @@ export const RouteComponent = () => {
         <Route path="contacts" element={<PrivateRoute element={Contacts} />} />
         <Route path="settings" element={<PrivateRoute element={Settings} />} />
         <Route path="device" element={<PrivateRoute element={DevicePage} />} />
-        <Route path="bar" element={<PrivateRoute element={Bar} />} />
-        <Route path="pie" element={<PrivateRoute element={Pie} />} />
-        <Route path="line" element={<PrivateRoute element={Line} />} />
-        <Route path="faq" element={<PrivateRoute element={FAQ} />} />
+
         <Route path="therapy" element={<PrivateRoute element={TherapyLog} />} />
         <Route path="errorlog" element={<PrivateRoute element={ErrorLog} />} />
+
+        <Route path="streamtherapy" element={<PrivateRoute element={TherapyLog} />} />
+        <Route path="streamerrorlog" element={<PrivateRoute element={ErrorLog} />} />
+        
         <Route path="geography" element={<PrivateRoute element={Geography} />} />
         <Route path="helathmonitor" element={<PrivateRoute element={HelathMonitor} />} />
 
