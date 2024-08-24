@@ -6,7 +6,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../../theme";
-import HhealthChart from "../../components/HhealthChart";
+import HealthChart from "../../components/HealthChart";
 
 const HelathMonitor = () => {
   const theme = useTheme();
@@ -16,7 +16,7 @@ const HelathMonitor = () => {
       <Header title="Health Monitor" subtitle="Health Monitor Page" />
       <Typography>
       
-      <HhealthChart/>
+      <HealthChart/>
       </Typography>
           </Box>
           

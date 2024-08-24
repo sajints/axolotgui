@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL, GET_HEALTHMONITOR_URL } from "../urlconstants";
 import { ReportGmailerrorred } from "@mui/icons-material";
-const HhealthChart = () => {
+const HealthChart = () => {
     const [chartData,setChartData] = useState([])  
 
     useEffect(() => {
@@ -21,9 +21,9 @@ const HhealthChart = () => {
     },[])
         return(
         <Box m="20px">
-            HhealthChart
+            HealthChart
         </Box>
     )
 };
 
-export default HhealthChart
+export default HealthChart
