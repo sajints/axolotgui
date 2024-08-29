@@ -1,16 +1,24 @@
-import { Box, Button, IconButton, Typography, useTheme, Drawer, Divider } from "@mui/material";
-import * as React from 'react';
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useTheme,
+  Drawer,
+  Divider,
+} from "@mui/material";
+import * as React from "react";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
-import PsychologyIcon from '@mui/icons-material/Psychology';
+import PsychologyIcon from "@mui/icons-material/Psychology";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import DevicesOtherIcon from "@mui/icons-material/DevicesOther";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import PhonelinkOffIcon from '@mui/icons-material/PhonelinkOff';
+import PhonelinkOffIcon from "@mui/icons-material/PhonelinkOff";
 import TrafficIcon from "@mui/icons-material/Traffic";
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
@@ -24,121 +32,131 @@ import { DeviceTable } from "./DeviceTable";
 import { FilterPanel } from "./FilterPanel";
 import { CurrentFilter } from "./CurrentFilter";
 import axios from "axios";
-import { API_BASE_URL, GET_DASHBOARD_URL, GET_DEVICES_URL } from "../../urlconstants";
-
-
-
+import {
+  API_BASE_URL,
+  GET_DASHBOARD_URL,
+  GET_DEVICES_URL,
+} from "../../urlconstants";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [tableDrawerOpen, setTableDrawerOpen] = useState(false)
-  const [tableType, setTableType] = useState('active-devices')
-  const [loading, setLoading] = useState(false)
-  const [dashboardData, setDashboardlData] = useState({})
-  const [deviceData, setDevicelData] = useState({})
-
+  const [tableDrawerOpen, setTableDrawerOpen] = useState(false);
+  const [tableType, setTableType] = useState("active-devices");
+  const [loading, setLoading] = useState(false);
+  const [dashboardData, setDashboardlData] = useState({});
+  const [deviceData, setDevicelData] = useState({});
 
   const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen)
-  }
+    setDrawerOpen(!drawerOpen);
+  };
   console.log("dashboardData", dashboardData);
   const getDataForLineChart = () => {
-    let responseData = dashboardData?.therapyTransmitted || []
+    let responseData = dashboardData?.therapyTransmitted || [];
     let allHospital = [];
-    responseData.forEach(country => {
-      country?.hospitals?.forEach(hospital => {
-        allHospital.push({ ...hospital, country: country.country.name })
-      })
-    })
-    console.log(allHospital)
-    const transformedData = responseData.map(countryData => {
+    responseData.forEach((country) => {
+      country?.hospitals?.forEach((hospital) => {
+        allHospital.push({ ...hospital, country: country.country.name });
+      });
+    });
+    console.log(allHospital);
+    const transformedData = responseData.map((countryData) => {
       return {
         id: countryData?.country?.name,
         color: tokens("dark").greenAccent[500],
-        data: allHospital.map(hospital => {
+        data: allHospital.map((hospital) => {
           return {
             x: hospital.name ?? "dummy",
-            y: countryData.country.name == hospital.country ? hospital.therapyCount : 0
-          }
-        })
-      }
-    })
-    return transformedData
-  }
+            y:
+              countryData.country.name == hospital.country
+                ? hospital.therapyCount
+                : 0,
+          };
+        }),
+      };
+    });
+    return transformedData;
+  };
   const toggleTableDrawer = () => {
-    setTableDrawerOpen(!tableDrawerOpen)
-  }
+    setTableDrawerOpen(!tableDrawerOpen);
+  };
 
   const getDashboardData = async (value) => {
-    setLoading(true)
-    const params = value ? `?${value}` : ""
+    setLoading(true);
+    const params = value ? `?${value}` : "";
     try {
-      const response = await axios.get(`${API_BASE_URL}${GET_DASHBOARD_URL}${params}`);
-      setDashboardlData(response.data)
+      const response = await axios.get(
+        `${API_BASE_URL}${GET_DASHBOARD_URL}${params}`
+      );
+      setDashboardlData(response.data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
 
-    }
-    catch (e) {
-      console.log(e)
-    }
-    finally {
-      setLoading(false)
-    }
-
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const getDevicesData = async (value) => {
-    setLoading(true)
-    const params = value ? `?${value}` : ""
+    setLoading(true);
+    const params = value ? `?${value}` : "";
     try {
-      const response = await axios.get(`${API_BASE_URL}${GET_DEVICES_URL}${params}`);
-      setDevicelData(response.data[0])
-
+      const response = await axios.get(
+        `${API_BASE_URL}${GET_DEVICES_URL}${params}`
+      );
+      setDevicelData(response.data[0]);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
     }
-    catch (e) {
-      console.log(e)
-    }
-    finally {
-      setLoading(false)
-    }
-
-  }
+  };
   React.useEffect(() => {
-    getDashboardData()
-    getDevicesData()
-  }, [])
+    getDashboardData();
+    getDevicesData();
+  }, []);
 
   if (loading) {
-    return "Loading"
+    return "Loading";
   }
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Drawer
-
-          anchor={'right'}
-          open={drawerOpen}
-          onClose={toggleDrawer}
-        >
+        <Drawer anchor={"right"} open={drawerOpen} onClose={toggleDrawer}>
           <Box sx={{ width: 350 }}>
-            <FilterPanel toggleDrawer={toggleDrawer} getDashboardData={getDashboardData} getDevicesData={getDevicesData} />
+            <FilterPanel
+              toggleDrawer={toggleDrawer}
+              getDashboardData={getDashboardData}
+              getDevicesData={getDevicesData}
+            />
           </Box>
         </Drawer>
-        <Drawer anchor="right" open={tableDrawerOpen} onClose={toggleTableDrawer}>
+        <Drawer
+          anchor="right"
+          open={tableDrawerOpen}
+          onClose={toggleTableDrawer}
+        >
           <Box sx={{ width: 900 }}>
-            <DeviceTable data={tableType === 'active-devices' ? deviceData["activeDevices"] : deviceData["inactiveDevices"]} />
+            <DeviceTable
+              data={
+                tableType === "active-devices"
+                  ? deviceData["activeDevices"]
+                  : deviceData["inactiveDevices"]
+              }
+            />
           </Box>
         </Drawer>
-        <Box sx={{ display: 'flex', alignItems: "center" }}>
-
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Header title="DASHBOARD" subtitle="Detailed dashboard view" />
-          <CurrentFilter getDashboardData={getDashboardData} getDevicesData={getDevicesData} />
+          <CurrentFilter
+            getDashboardData={getDashboardData}
+            getDevicesData={getDevicesData}
+          />
         </Box>
         <Box>
-
           <Button
             onClick={toggleDrawer}
             sx={{
@@ -147,7 +165,11 @@ const Dashboard = () => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-            }} variant="outlined">Filters</Button>
+            }}
+            variant="outlined"
+          >
+            Filters
+          </Button>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -182,13 +204,15 @@ const Dashboard = () => {
             title={dashboardData.dailyTherapyCount}
             subtitle="Number of therapies today"
             progress="0.75"
-            increase={`${dashboardData?.dailyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.dailyTherapyPercentageDiff}` : `- ${dashboardData?.dailyTherapyPercentageDiff}`}%`}
-
+            increase={`${
+              dashboardData?.dailyTherapyPercentageDiff >= 0
+                ? `+ ${dashboardData?.dailyTherapyPercentageDiff}`
+                : `- ${dashboardData?.dailyTherapyPercentageDiff}`
+            }%`}
             icon={
               <PsychologyIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
-              
             }
           />
         </Box>
@@ -198,19 +222,21 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: "pointer" }}
           onClick={() => {
-            setTableType('active-devices')
-            toggleTableDrawer()
+            setTableType("active-devices");
+            toggleTableDrawer();
           }}
         >
           <StatBox
             title={dashboardData.activeDevices}
-
             subtitle="Active Devices"
             progress="0.50"
-            increase={`${dashboardData?.activeDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.activeDevicesPercentageDiff}` : `- ${dashboardData?.activeDevicesPercentageDiff}`}%`}
-
+            increase={`${
+              dashboardData?.activeDevicesPercentageDiff >= 0
+                ? `+ ${dashboardData?.activeDevicesPercentageDiff}`
+                : `- ${dashboardData?.activeDevicesPercentageDiff}`
+            }%`}
             icon={
               <DevicesOtherIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -224,21 +250,24 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: "pointer" }}
           onClick={() => {
-            setTableType('inactive-devices')
-            toggleTableDrawer()
+            setTableType("inactive-devices");
+            toggleTableDrawer();
           }}
         >
           <StatBox
             title={dashboardData.inactiveDevices}
-
             subtitle="Inactive Devices"
             progress="0.30"
-            increase={`${dashboardData?.inactiveDevicesPercentageDiff >= 0 ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}` : `- ${dashboardData?.inactiveDevicesPercentageDiff}`}%`}
-
+            increase={`${
+              dashboardData?.inactiveDevicesPercentageDiff >= 0
+                ? `+ ${dashboardData?.inactiveDevicesPercentageDiff}`
+                : `- ${dashboardData?.inactiveDevicesPercentageDiff}`
+            }%`}
             icon={
-              <PhonelinkOffIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+              <PhonelinkOffIcon
+                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
@@ -252,11 +281,13 @@ const Dashboard = () => {
         >
           <StatBox
             title={dashboardData.monthlyTherapyCount}
-
             subtitle="Number of Therapies this month"
             progress="0.80"
-            increase={`${dashboardData?.monthlyTherapyPercentageDiff >= 0 ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}` : `- ${dashboardData?.monthlyTherapyPercentageDiff}`}%`}
-
+            increase={`${
+              dashboardData?.monthlyTherapyPercentageDiff >= 0
+                ? `+ ${dashboardData?.monthlyTherapyPercentageDiff}`
+                : `- ${dashboardData?.monthlyTherapyPercentageDiff}`
+            }%`}
             icon={
               <MonitorHeartIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -303,9 +334,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-
             <LineChart isDashboard={true} data={getDataForLineChart()} />
-
           </Box>
         </Box>
         <Box
@@ -330,7 +359,6 @@ const Dashboard = () => {
           {dashboardData?.recentSync?.map((transaction, i) => (
             <Box
               key={`${i}`}
-
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -388,7 +416,6 @@ const Dashboard = () => {
               sx={{ mt: "15px" }}
             >
               {dashboardData?.monthlySyncCount} Sync done this month
-              
             </Typography>
             <Typography>Includes all geographies, full & half sync</Typography>
           </Box>
