@@ -10,8 +10,7 @@ const PrivateRoute = ({ element: Component }) => {
     return <div>Loading...</div>;
   }
 
-  // return isAuthenticated ? <Component /> : <Navigate to="/login" />;
-  return true ? <Component /> : <Navigate to="/login" />;
+  return isAuthenticated ? <Component /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
