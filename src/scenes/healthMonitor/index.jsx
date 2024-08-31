@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL, GET_HEALTHMONITOR_URL } from "../../urlconstants";
 import CustomTable from "../../components/common-components/custom-table";
-
+import HealthBarChart from "../../components/common-components/health-bar-chart";
 const HelathMonitor = () => {
   const theme = useTheme();
   const [healthMonitorData, setHealthMonitorData] = useState([]);
@@ -59,6 +59,7 @@ const HelathMonitor = () => {
           onDateChange={handleDateChange}
         />
       </Typography>
+      <HealthBarChart data={healthMonitorData} />
     </Box>
   );
 };
