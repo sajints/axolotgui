@@ -51,7 +51,7 @@ const HelathMonitor = () => {
     <Box m="20px">
       <Header title="Health Monitor" subtitle="Health Monitor Page" />
       <Typography>
-        {/* <HealthChart healthMonitorData/> test*/}
+        {/* <HealthChart healthMonitorData/> test1*/}
         <CustomTable
           data={healthMonitorData}
           columns={columns}
