@@ -33,3 +33,13 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+/* side bar */
+.pro-sidebar{
+  position: fixed !important;
+}
+
+/* Main content */
+.content{
+  width: calc(100% - 270px);
+  margin-left: 270px !important;
+}

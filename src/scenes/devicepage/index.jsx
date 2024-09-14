@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { tokens } from "../../theme";
+
 import { API_BASE_URL, GET_DEVICES_URL } from "../../urlconstants";
 
 export default function Device() {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [loading, setLoading] = useState(false);
   const [deviceData, setDeviceData] = useState({
     activeDevices: [],
@@ -56,30 +62,100 @@ export default function Device() {
   return (
     <div>
       <div>
-        <h2>Active Devices</h2>
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={deviceData.activeDevices}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5, 10, 20]}
-            checkboxSelection
-            disableSelectionOnClick
-          />
+        <Box m="0px 0px 0 15px">
+          <h2>Active Devices</h2>
+        </Box>
+        <div>
+          <Box
+            m="40px 15px 0 15px"
+            height="75vh"
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "& .name-column--cell": {
+                color: colors.greenAccent[300],
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: colors.blueAccent[700],
+                borderBottom: "none",
+              },
+              "& .MuiDataGrid-virtualScroller": {
+                backgroundColor: colors.primary[400],
+              },
+              "& .MuiDataGrid-footerContainer": {
+                borderTop: "none",
+                backgroundColor: colors.blueAccent[700],
+              },
+              "& .MuiCheckbox-root": {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                color: `${colors.grey[100]} !important`,
+              },
+            }}
+          >
+            <DataGrid
+              rows={deviceData.activeDevices}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5, 10, 20]}
+              checkboxSelection
+              disableSelectionOnClick
+            />
+          </Box>
         </div>
       </div>
 
       <div>
-        <h2>Inactive Devices</h2>
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={deviceData.inactiveDevices}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5, 10, 20]}
-            checkboxSelection
-            disableSelectionOnClick
-          />
+        <Box m="10px 0px 0 15px">
+          <h2>Inactive Devices</h2>
+        </Box>
+        <div>
+          <Box
+            m="20px 15px 0 15px"
+            height="75vh"
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "& .name-column--cell": {
+                color: colors.greenAccent[300],
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: colors.blueAccent[700],
+                borderBottom: "none",
+              },
+              "& .MuiDataGrid-virtualScroller": {
+                backgroundColor: colors.primary[400],
+              },
+              "& .MuiDataGrid-footerContainer": {
+                borderTop: "none",
+                backgroundColor: colors.blueAccent[700],
+              },
+              "& .MuiCheckbox-root": {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                color: `${colors.grey[100]} !important`,
+              },
+            }}
+          >
+            <DataGrid
+              rows={deviceData.inactiveDevices}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5, 10, 20]}
+              checkboxSelection
+              disableSelectionOnClick
+            />
+          </Box>
         </div>
       </div>
     </div>
