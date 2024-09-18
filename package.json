@@ -43,7 +43,6 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "start": "set PORT=80 && env-cmd -f .env && react-scripts start",
     "build": "react-scripts build",
     "dev": "set PORT=80 IP=192.168.0.60 && react-scripts start",
