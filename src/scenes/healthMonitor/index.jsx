@@ -4,9 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_BASE_URL, GET_HEALTHMONITOR_URL } from "../../urlconstants";
 import CustomTable from "../../components/common-components/custom-table";
-// import HealthBarChart from "../../components/common-components/health-bar-chart";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
-
+import CustomGraph from "../../components/common-components/custom-graph";
+// import CustomChart from "../../components/common-components/CustomChart";
 const HealthMonitor = () => {
   const theme = useTheme();
   const [healthMonitorData, setHealthMonitorData] = useState([]);
@@ -43,9 +43,11 @@ const HealthMonitor = () => {
   const apiData = healthMonitorData.filter(
     (item) => item.application === "Axolot API"
   );
+  apiData.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
   const sqlDbData = healthMonitorData.filter(
     (item) => item.application === "Axolot SQLDB"
   );
+  sqlDbData.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
 
   const columns = [
     {
@@ -164,8 +166,15 @@ const HealthMonitor = () => {
           <CustomTable data={sqlDbData} columns={columns} />
         </Box>
       </Box>
-
-      {/* <HealthBarChart data={healthMonitorData} /> */}
+      {/* <Box mt="40px">
+        <Typography variant="h5" color={"#70d8bd"} gutterBottom>
+          Health Monitor Charts
+        </Typography>
+        <CustomChart apiData={apiData} sqlDbData={sqlDbData} />
+      </Box> */}
+      <Box>
+        <CustomGraph apiData={apiData} sqlDbData={sqlDbData} />
+      </Box>
     </Box>
   );
 };
