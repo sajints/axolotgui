@@ -202,7 +202,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
                 marginRight: 1,
               }}
             />
-            <Typography variant="body2">Result 1</Typography>
+            <Typography variant="body2">Service Up</Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box
@@ -214,7 +214,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
                 marginRight: 1,
               }}
             />
-            <Typography variant="body2">Result 0</Typography>
+            <Typography variant="body2">Service Down</Typography>
           </Box>
         </Box>
       </Box>
