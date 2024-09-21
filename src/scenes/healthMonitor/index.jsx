@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { API_BASE_URL, GET_HEALTHMONITOR_URL } from "../../urlconstants";
 import CustomTable from "../../components/common-components/custom-table";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
-// import CustomGraph from "../../components/common-components/custom-graph";
+import CustomGraph from "../../components/common-components/custom-graph";
 const HealthMonitor = () => {
   const theme = useTheme();
   const [healthMonitorData, setHealthMonitorData] = useState([]);
@@ -171,7 +171,9 @@ const HealthMonitor = () => {
         </Typography>
         <CustomChart apiData={apiData} sqlDbData={sqlDbData} />
       </Box> */}
-      <Box>{/* <CustomGraph apiData={apiData} sqlDbData={sqlDbData} /> */}</Box>
+      <Box>
+        <CustomGraph apiData={apiData} sqlDbData={sqlDbData} />
+      </Box>
     </Box>
   );
 };

@@ -6,10 +6,12 @@ import {
   Select,
   MenuItem,
   Typography,
+  useTheme,
 } from "@mui/material";
-import { BarChart } from "@mui/x-charts/BarChart";
+import { BarChart, barElementClasses } from "@mui/x-charts/BarChart";
 
 const CustomGraph = ({ apiData, sqlDbData }) => {
+  const theme = useTheme();
   const [timeRange, setTimeRange] = useState("12");
   const [chartData, setChartData] = useState({ api: [], sqlDb: [] });
 
@@ -17,21 +19,25 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
     setTimeRange(event.target.value);
   };
 
-  // Round minutes to nearest 5
   const roundToNearestFive = (minutes) => {
     return Math.round(minutes / 5) * 5;
   };
 
   const processData = (data, hours) => {
     const now = new Date();
-    const startTime = new Date(now.getTime() - hours * 60 * 60 * 1000);
+    const endTime = new Date(now);
+    const startTime = new Date(now);
+    startTime.setHours(now.getHours() - hours); // Adjust to show the last 'hours' from the current hour
 
-    // Filter and sort data
-    const filteredData = data
-      .filter((item) => new Date(item.creationDate) >= startTime)
-      .sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
+    // Ensure the start time is rounded down to the start of the hour
+    startTime.setMinutes(0, 0, 0);
 
-    // Container for hour intervals
+    const filteredData = data.filter(
+      (item) =>
+        new Date(item.creationDate) >= startTime &&
+        new Date(item.creationDate) < endTime
+    );
+
     const hourBuckets = {};
 
     filteredData.forEach((item, index, arr) => {
@@ -43,9 +49,8 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
       }
 
       const startOfHour = new Date(currentTime);
-      startOfHour.setMinutes(0, 0, 0);
+      startOfHour.setMinutes(0, 0, 0, 0);
 
-      // Calculate interval from the start of the hour to the first trigger
       if (
         index === 0 ||
         currentTime.getHours() !==
@@ -53,62 +58,57 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
       ) {
         const intervalMinutes = (currentTime - startOfHour) / (60 * 1000);
         const roundedInterval = roundToNearestFive(intervalMinutes);
-
-        console.log(
-          `First interval calculation: Start of hour: ${startOfHour}, Current Time: ${currentTime}, Interval Minutes: ${intervalMinutes}, Rounded Interval: ${roundedInterval}`
-        );
-
-        hourBuckets[hour].intervals.push(roundedInterval);
+        hourBuckets[hour].intervals.push({
+          interval: roundedInterval,
+          result: item.result,
+        });
       } else {
-        // Calculate the interval between consecutive triggers
         const previousTime = new Date(arr[index - 1].creationDate);
         const intervalMinutes = (currentTime - previousTime) / (60 * 1000);
         const roundedInterval = roundToNearestFive(intervalMinutes);
-
-        console.log(
-          `Interval calculation between triggers: Previous Time: ${previousTime}, Current Time: ${currentTime}, Interval Minutes: ${intervalMinutes}, Rounded Interval: ${roundedInterval}`
-        );
-
-        hourBuckets[hour].intervals.push(roundedInterval);
+        hourBuckets[hour].intervals.push({
+          interval: roundedInterval,
+          result: item.result,
+        });
       }
 
-      // Handle the last part of the hour
       if (
         index === arr.length - 1 ||
         new Date(arr[index + 1].creationDate).getHours() !== hour
       ) {
         const endOfHour = new Date(currentTime);
-        endOfHour.setMinutes(60, 0, 0);
-        const remainingMinutes = (endOfHour - currentTime) / (60 * 1000);
+        endOfHour.setMinutes(60, 0, 0, 0);
+
+        const remainingMinutes =
+          arr.length - 1 === index
+            ? currentTime.getMinutes()
+            : (endOfHour - currentTime) / (60 * 1000);
         const roundedRemaining = roundToNearestFive(remainingMinutes);
-
-        console.log(
-          `Last interval calculation: End of hour: ${endOfHour}, Current Time: ${currentTime}, Remaining Minutes: ${remainingMinutes}, Rounded Remaining: ${roundedRemaining}`
-        );
-
-        hourBuckets[hour].intervals.push(roundedRemaining);
+        hourBuckets[hour].intervals.push({
+          interval: roundedRemaining,
+          result: 1, // Assuming successful result for remaining time
+        });
       }
     });
 
-    // Ensure total time is exactly 60 minutes
     return Object.keys(hourBuckets).map((hour) => {
       const hourData = hourBuckets[hour];
       const totalIntervalSum = hourData.intervals.reduce(
-        (acc, val) => acc + val,
+        (acc, val) => acc + val.interval,
         0
       );
 
-      // Ensure the total time for the hour is exactly 60 minutes
-      if (totalIntervalSum < 60) {
-        hourData.intervals.push(60 - totalIntervalSum);
+      if (totalIntervalSum < 60 && !(hour == now.getHours())) {
+        hourData.intervals.push({
+          interval: 60 - totalIntervalSum,
+          result: 1, // Fill remaining time with success
+        });
       }
+      // console.log("hour data:", hourData);
 
       return {
         hour: hour,
-        ...hourData.intervals.reduce((acc, interval, index) => {
-          acc[`interval-${index}`] = interval;
-          return acc;
-        }, {}),
+        ...hourData.intervals.slice(1),
       };
     });
   };
@@ -121,26 +121,102 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
   }, [apiData, sqlDbData, timeRange]);
 
   const renderChart = (data, title) => {
-    const series = Array(12)
-      .fill()
-      .map((_, index) => ({
+    const colors = data.map((hourEntry) => {
+      return Object.keys(hourEntry).reduce((acc, key) => {
+        if (key !== "hour") {
+          const result = hourEntry[key].result;
+          acc.push(result === 0 ? "#f47560" : "#70d8bd"); // Red for result 0, green for result 1
+        }
+        return acc;
+      }, []);
+    });
+
+    // Build the series dynamically based on the intervals in the data
+    const series = Array.from({ length: 12 }, (_, index) => {
+      return {
         dataKey: `interval-${index}`,
-        label: `Interval ${index + 1}`,
         stack: "total",
-      }));
+      };
+    });
+
+    // Prepare dataset with formatted intervals and results
+    const formattedData = data.map((hourEntry) => {
+      const hourData = {
+        hour: hourEntry.hour, // Keep hour as X-axis
+      };
+
+      // For each interval, add both interval and result to the row
+      Object.keys(hourEntry).forEach((key) => {
+        if (key !== "hour") {
+          const intervalKey = `interval-${key}`;
+          const resultKey = `result-${key}`;
+          hourData[intervalKey] = hourEntry[key].interval;
+          hourData[resultKey] = hourEntry[key].result;
+        }
+      });
+
+      return hourData;
+    });
 
     return (
       <Box height="400px" width="100%" mb={4}>
-        <Typography variant="h6" gutterBottom>
-          {title}
-        </Typography>
+        <Typography variant="h6">{title}</Typography>
         <BarChart
-          dataset={data}
-          xAxis={[{ scaleType: "band", dataKey: "hour" }]}
-          series={series}
+          sx={(theme) => ({
+            [`.${barElementClasses.root}`]: {
+              fill: theme.palette.background.paper,
+              strokeWidth: 1,
+              fill: "",
+              stroke: "#ffffff",
+            },
+          })}
+          dataset={formattedData} // Use the formatted dataset
+          xAxis={[{ scaleType: "band", dataKey: "hour" }]} // Hours on X-axis
+          series={series} // Define series with dynamic colors
           height={350}
-          yAxis={[{ label: "Minutes", min: 0, max: 60 }]}
+          colors={colors.flat()}
+          yAxis={[
+            {
+              label: "Minutes",
+              min: 0,
+              max: 60,
+              tickNumber: 10,
+            },
+          ]}
+          slotProps={{ legend: { hidden: true } }}
         />
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              mr: 2,
+            }}
+          >
+            <Box
+              sx={{
+                width: 20,
+                height: 20,
+                backgroundColor: "#70d8bd",
+                border: "1px solid white",
+                marginRight: 1,
+              }}
+            />
+            <Typography variant="body2">Result 1</Typography>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                width: 20,
+                height: 20,
+                backgroundColor: "#f47560",
+                border: "1px solid white",
+                marginRight: 1,
+              }}
+            />
+            <Typography variant="body2">Result 0</Typography>
+          </Box>
+        </Box>
       </Box>
     );
   };
