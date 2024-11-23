@@ -165,15 +165,10 @@ const HealthMonitor = () => {
           <CustomTable data={sqlDbData} columns={columns} />
         </Box>
       </Box>
-      {/* <Box mt="40px">
-        <Typography variant="h5" color={"#70d8bd"} gutterBottom>
-          Health Monitor Charts
-        </Typography>
-        <CustomChart apiData={apiData} sqlDbData={sqlDbData} />
-      </Box> */}
-      <Box>
+ 
+      {/* <Box>
         <CustomGraph apiData={apiData} sqlDbData={sqlDbData} />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

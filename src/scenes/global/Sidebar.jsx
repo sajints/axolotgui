@@ -214,7 +214,7 @@ const Sidebar = () => {
             />
             <Item
               title="Telemetry Stream"
-              to="/streamtherapylog"
+              to="/streamtelemetrylog"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -12,7 +12,9 @@ import DevicePage from "../scenes/devicepage/index";
 // import FAQ from "../scenes/faq";
 import TherapyLog from "../scenes/therapylogpage/index";
 import TherapyLogStream from "../scenes/streamtherapylog/index"
+import TelemetryLogStream from "../scenes/streamtelemetrylog/index"
 import ErrorLog from "../scenes/errorlogpage/index";
+import ErrorLogStream from "../scenes/streamerrorlog/index"
 import Login from "../scenes/login";
 import Geography from "../scenes/geography";
 import PrivateRoute from "./privateroute";  // Import the PrivateRoute component
@@ -31,8 +33,9 @@ export const RouteComponent = () => {
         <Route path="errorlog" element={<PrivateRoute element={ErrorLog} />} />
 
         <Route path="streamtherapylog" element={<PrivateRoute element={TherapyLogStream} />} />
-        <Route path="streamerrorlog" element={<PrivateRoute element={ErrorLog} />} />
-        
+        <Route path="streamerrorlog" element={<PrivateRoute element={ErrorLogStream} />} />
+        <Route path="streamtelemetrylog" element={<PrivateRoute element={TelemetryLogStream} />} />
+
         <Route path="geography" element={<PrivateRoute element={Geography} />} />
         <Route path="helathmonitor" element={<PrivateRoute element={HelathMonitor} />} />
 

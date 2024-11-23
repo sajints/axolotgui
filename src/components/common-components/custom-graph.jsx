@@ -12,7 +12,7 @@ import { BarChart, barElementClasses } from "@mui/x-charts/BarChart";
 
 const CustomGraph = ({ apiData, sqlDbData }) => {
   const theme = useTheme();
-  const [timeRange, setTimeRange] = useState("12");
+  const [timeRange, setTimeRange] = useState("24");
   const [chartData, setChartData] = useState({ api: [], sqlDb: [] });
 
   const handleTimeRangeChange = (event) => {
@@ -24,6 +24,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
   };
 
   const processData = (data, hours) => {
+    // console.log('api data length', data.length)
     const now = new Date();
     const endTime = new Date(now);
     const startTime = new Date(now);
@@ -32,11 +33,12 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
     // Ensure the start time is rounded down to the start of the hour
     startTime.setMinutes(0, 0, 0);
 
-    const filteredData = data.filter(
-      (item) =>
-        new Date(item.creationDate) >= startTime &&
-        new Date(item.creationDate) < endTime
-    );
+    const filteredData = data
+    // .filter(
+    //   (item) =>
+    //     new Date(item.creationDate) >= startTime &&
+    //     new Date(item.creationDate) < endTime
+    // );
 
     const hourBuckets = {};
 
@@ -90,7 +92,8 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
         });
       }
     });
-
+    // console.log('After validation data length', Object.keys(hourBuckets).length)
+    // filteredData
     return Object.keys(hourBuckets).map((hour) => {
       const hourData = hourBuckets[hour];
       const totalIntervalSum = hourData.intervals.reduce(
@@ -104,7 +107,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
           result: 1, // Fill remaining time with success
         });
       }
-      // console.log("hour data:", hourData);
+      // console.log("hour data:",hour, hourData);
 
       return {
         hour: hour,
@@ -114,6 +117,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
   };
 
   useEffect(() => {
+    console.log("timeRange=",timeRange);
     setChartData({
       api: processData(apiData, parseInt(timeRange)),
       sqlDb: processData(sqlDbData, parseInt(timeRange)),
@@ -121,16 +125,19 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
   }, [apiData, sqlDbData, timeRange]);
 
   const renderChart = (data, title) => {
+    // console.log('data came here', data, title)
     const colors = data.map((hourEntry) => {
       return Object.keys(hourEntry).reduce((acc, key) => {
         if (key !== "hour") {
           const result = hourEntry[key].result;
-          acc.push(result === 0 ? "#f47560" : "#70d8bd"); // Red for result 0, green for result 1
+          const finalResult = result === 0 ? "#f47560" : "#70d8bd";
+          console.log('finalResult',finalResult);
+          acc.push(finalResult); // Red for result 0, green for result 1
         }
         return acc;
       }, []);
     });
-
+    console.log('coloros data ', colors)
     // Build the series dynamically based on the intervals in the data
     const series = Array.from({ length: 12 }, (_, index) => {
       return {
@@ -138,12 +145,14 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
         stack: "total",
       };
     });
-
+    console.log('series', series)
     // Prepare dataset with formatted intervals and results
     const formattedData = data.map((hourEntry) => {
       const hourData = {
         hour: hourEntry.hour, // Keep hour as X-axis
       };
+
+     
 
       // For each interval, add both interval and result to the row
       Object.keys(hourEntry).forEach((key) => {
@@ -157,9 +166,17 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
 
       return hourData;
     });
+    console.log("formattedData=",formattedData);
+    // const chunkedData = [];
+    // const chunkSize = 12;
+    
+    // for (let i = 0; i < formattedData.length; i += chunkSize) {
+    //   chunkedData.push(formattedData.slice(i, i + chunkSize));
+    // } 
+    
 
     return (
-      <Box height="400px" width="100%" mb={4}>
+      <Box height="400px" width="100%" mb={4} key={title}>
         <Typography variant="h6">{title}</Typography>
         <BarChart
           sx={(theme) => ({
@@ -223,7 +240,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
 
   return (
     <Box>
-      <FormControl sx={{ mb: 2, minWidth: 120 }}>
+      {/* <FormControl sx={{ mb: 2, minWidth: 120 }}>
         <InputLabel id="time-range-label">Time Range</InputLabel>
         <Select
           labelId="time-range-label"
@@ -235,7 +252,7 @@ const CustomGraph = ({ apiData, sqlDbData }) => {
           <MenuItem value={12}>Last 12 Hours</MenuItem>
           <MenuItem value={24}>Last 24 Hours</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
       {renderChart(chartData.api, "Axolot API Data")}
       {renderChart(chartData.sqlDb, "Axolot SQLDB Data")}
     </Box>

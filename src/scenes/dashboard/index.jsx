@@ -37,6 +37,7 @@ import {
   GET_DASHBOARD_URL,
   GET_DEVICES_URL,
 } from "../../urlconstants";
+import MapView from "../../components/MapView";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -450,6 +451,7 @@ const Dashboard = () => {
             Geography Based Traffic
           </Typography>
           <Box height="200px">
+          {/* <MapView/> */}
             <GeographyChart isDashboard={true} />
           </Box>
         </Box>

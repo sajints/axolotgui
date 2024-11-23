@@ -69,7 +69,7 @@ const HealthChart = () => {
     const cutoff = new Date(now);
 
     if (filter === "12") {
-      cutoff.setHours(now.getHours() - 12);
+      cutoff.setHours(now.getHours() - 24); //to change
     } else if (filter === "24") {
       cutoff.setHours(now.getHours() - 24);
     }

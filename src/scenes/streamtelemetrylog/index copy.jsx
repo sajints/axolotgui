@@ -9,9 +9,8 @@ import * as React from 'react';
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import Collapsible  from "../../components/common-components/divtoggle";
 
-export default function TherapyLogStream() {
+export default function TherapyListPage() {
 	const [loading, setLoading] = useState(false)
 	const [TherapyLogData, setTherapyLogData] = useState({})
 
@@ -64,19 +63,51 @@ export default function TherapyLogStream() {
 
 	return (
 		<div>
-			<h2>Error Logs</h2>
-      <div >
-
-        {Array.isArray(TherapyLogData) && TherapyLogData.map((item,index) => (
-          
-          <Collapsible header="">
-          
-              {JSON.stringify(item, null, 2)} 
-            </Collapsible>
-   
-        ))}
-    </div>			
+		<div>
+			<h2>Therapy Logs</h2>
+			<Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.greenAccent[300],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.blueAccent[700],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
+        }}
+      >
+        <DataGrid
+          rows={TherapyLogData}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+        />
+		
+        </Box>
 		</div>
+		
+		
+	</div>
 	);
 }
 
