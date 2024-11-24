@@ -64,6 +64,6 @@ jobs:
         with:
           app-name: 'axomera'
           slot-name: 'Production'
-          package: *.zip
+          package: '*.zip'
           type: ZIP
           
