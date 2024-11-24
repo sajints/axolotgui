@@ -59,11 +59,11 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7BC28EF3CA2846E0BCC8A6B463B659D6 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
           app-name: 'axomera'
           slot-name: 'Production'
           package: .
-          type: ZIP
+          
           
