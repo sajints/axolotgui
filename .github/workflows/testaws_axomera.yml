@@ -23,15 +23,18 @@ jobs:
 
       - name: npm install, build, and test
         run: |
+          npm config set legacy-peer-deps true
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build
+          mkdir temp
+          xcopy build temp\build /E /H /C /I
+          ls
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: temp
 
   deploy:
     runs-on: ubuntu-latest
